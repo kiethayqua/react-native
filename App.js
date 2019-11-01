@@ -1,38 +1,29 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 import HinhCN from './components/HinhCN.js';
+
 class App extends Component{
   render(){
     return (
       <View>
-        <Khoi />
-        <Khoi />
-        <HinhCN />
+        <KhachHang hoten="Nguyen Phuc Kiet"/>
+        <HinhCN yourname="Kiet" hername="Vy"/>
       </View>
     );
   }
 }
 
-// C1 : khai bao cac Component truc tiep trong file chay chuong trinh
-// C2: khai bao cac Component trong folder components
-export class Khoi extends Component{
+// C1: truyen tham so cho Component ben trong file chinh
+// de truyen tham so can {this.props.<[ten_thuoc_tinh]>}
+// C2: truyen tham so cho Component ben ngoai file chinh (phuc tap hon)
+export class KhachHang extends Component{
   render(){
     return(
-      <View style={styles.abc}></View>
+      <View style={{backgroundColor: 'yellow', padding: 10}}>
+        <Text>{this.props.hoten}</Text>
+      </View>
     );
   }
 }
 
-
-
 export default App;
-
-var styles = StyleSheet.create({
-  abc:{
-    backgroundColor: 'red',
-    width: 100,
-    height: 100,
-    borderWidth: 1,
-  }
-});
