@@ -1,40 +1,75 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import HinhCN from './components/HinhCN.js';
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ImageBackground
+} from 'react-native';
+import SearchInput from './components/SearchInput';
 
-// STATE de cap nhat trang thai ngay khi thuc hien hanh dong
-// khoi tao trong constructor
-// this.state de khoi tao cac STATE
-// this.setState de cai dat cac state
-class App extends Component{
+export default class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      so: 999
-    }
+    this.state= {
+      location: 'San Francisco',
+    };
   }
 
-  showClick(){
-    console.log('CLICKED!');
+  hadleUpdateLocation = city =>{
     this.setState({
-      so: this.state.so + 1
+      location: city,
     });
   }
 
-  render(){
+  render() {
+    var {location} = this.state;
+
     return (
-      <View>
-        <Text style={{fontSize: 100}}>{this.state.so}</Text>
-        <TouchableOpacity onPress={()=>{this.showClick()}}>
-          <View style={{backgroundColor: 'red', width: 50, height: 20}}>
-            <Text>+</Text>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+
+        <ImageBackground source={require('./utils/getImageForWeather/Clear.jpg')} style={styles.imageContainer} imageStyle={styles.image}>
+          <View style={styles.detailContainer}>
+          <Text style={styles.largeText}>{location}</Text>
+          <Text style={styles.smallText}>Light Cloud</Text>
+          <Text style={styles.largeText}>24°</Text>
+
+          <SearchInput placeholder='Search a city' onSubmit={this.hadleUpdateLocation}/>
           </View>
-        </TouchableOpacity>
-      </View>
+        </ImageBackground>
+      </KeyboardAvoidingView>
+
     );
   }
 }
 
-
-
-export default App;
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#34495E',
+  },
+  detailContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    paddingHorizontal: 20,
+  },
+  smallText: {
+    fontFamily: 'Roboto',
+    fontSize: 12,
+    color: 'white',
+  },
+  largeText: {
+    fontSize: 30,
+    color: 'white',
+  },
+  imageContainer:{
+    flex: 1,
+  },
+  image:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
+  }
+});
